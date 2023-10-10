@@ -13,7 +13,7 @@ namespace LeaveManagement.Web.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "cac43a6e-f7bb-4448-baaf-ladd431ccbbf", "e1d7c895-73b5-4fb8-84e3-9bd50ab11c8b", "Adminstrator", "ADMINISTRATOR" },
+                    { "cac43a6e-f7bb-4448-baaf-ladd431ccbbf", "e1d7c895-73b5-4fb8-84e3-9bd50ab11c8b", "Administrator", "ADMINISTRATOR" },
                     { "cac43a7e-f7cb-4148-baaf-labb431eabbe", "a5260015-f974-4bdd-aad0-5478ab366f41", "User", "USER" }
                 });
 

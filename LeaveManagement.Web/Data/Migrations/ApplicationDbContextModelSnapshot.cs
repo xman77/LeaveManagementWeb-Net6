@@ -228,7 +228,7 @@ namespace LeaveManagement.Web.Data.Migrations
                         {
                             Id = "cac43a6e-f7bb-4448-baaf-ladd431ccbbf",
                             ConcurrencyStamp = "ccbf2cb8-eb71-4a46-a8ce-7107e7f61d29",
-                            Name = "Adminstrator",
+                            Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new

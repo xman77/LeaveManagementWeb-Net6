@@ -12,7 +12,7 @@ namespace LeaveManagement.Web.Configurationn.Entities
                 new IdentityRole
                 {
                     Id = "cac43a6e-f7bb-4448-baaf-ladd431ccbbf",
-                    Name = "Adminstrator",
+                    Name = "Administrator",
                     NormalizedName = "ADMINISTRATOR"
                 },
                 new IdentityRole
