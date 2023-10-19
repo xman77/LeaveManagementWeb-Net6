@@ -83,15 +83,10 @@ namespace LeaveManagement.Web.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var leaveAllocation = await leaveAllocationRepository.GetAsync(model.Id);
-                    if (leaveAllocation == null)
+                    if(await leaveAllocationRepository.UpdateEmployeeAllocation(model))
                     {
-                        return NotFound();
+                        return RedirectToAction(nameof(ViewAllocations), new { id = model.EmployeeId });
                     }
-                    leaveAllocation.Period = model.Period;
-                    leaveAllocation.NumberOfDays = model.NumberOfDays;
-                    await leaveAllocationRepository.UpdateAsync(leaveAllocation);
-                    return RedirectToAction(nameof(ViewAllocations), new { id = model.EmployeeId });
                 }
             }
             catch(Exception ex)
