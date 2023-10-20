@@ -1,4 +1,6 @@
-﻿namespace LeaveManagement.Web.Contracts
+﻿using LeaveManagement.Web.Models;
+
+namespace LeaveManagement.Web.Contracts
 {
     public interface IGenericRepository<T> where T : class
     {
