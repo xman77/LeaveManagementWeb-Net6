@@ -88,7 +88,7 @@ namespace LeaveManagement.Web.Controllers
                 if (ModelState.IsValid)
                 {
                     await leaveRequestRepository.CreateLeaveRequest(model);
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(MyLeave));
                 }
             }
             catch (Exception ex)
