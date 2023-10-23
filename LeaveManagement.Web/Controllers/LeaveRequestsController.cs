@@ -29,7 +29,7 @@ namespace LeaveManagement.Web.Controllers
         // GET: LeaveRequests
         public async Task<IActionResult> Index()
         {
-            var model = await leaveRequestRepository.GetAdminLeaveRequwstList();
+            var model = await leaveRequestRepository.GetAdminLeaveRequestList();
             return View(model);
         }
 
@@ -42,20 +42,28 @@ namespace LeaveManagement.Web.Controllers
         // GET: LeaveRequests/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.LeaveRequests == null)
+            var model = await leaveRequestRepository.GetLeaveRequestAsync(id);
+            if (model == null)
             {
                 return NotFound();
             }
+            return View(model);
+        }
 
-            var leaveRequest = await _context.LeaveRequests
-                .Include(l => l.LeaveType)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (leaveRequest == null)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ApproveRequest(int id,bool approved)
+        {
+            try
             {
-                return NotFound();
+                await leaveRequestRepository.ChangeApprovalStatus(id, approved);
             }
+            catch (Exception ex)
+            {
 
-            return View(leaveRequest);
+                throw;
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: LeaveRequests/Create
