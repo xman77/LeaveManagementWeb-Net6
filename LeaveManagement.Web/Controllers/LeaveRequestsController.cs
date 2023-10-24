@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using LeaveManagement.Web.Constants;
+using LeaveManagement.Web.Contracts;
+using LeaveManagement.Web.Data;
+using LeaveManagement.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using LeaveManagement.Web.Data;
-using LeaveManagement.Web.Models;
-using AutoMapper;
-using LeaveManagement.Web.Contracts;
-using Microsoft.AspNetCore.Authorization;
-using LeaveManagement.Web.Constants;
 
 namespace LeaveManagement.Web.Controllers
 {
@@ -20,12 +15,12 @@ namespace LeaveManagement.Web.Controllers
         private readonly ApplicationDbContext _context;
         private readonly ILeaveRequestRepository leaveRequestRepository;
 
-        public LeaveRequestsController(ApplicationDbContext context,ILeaveRequestRepository leaveRequestRepository)
+        public LeaveRequestsController(ApplicationDbContext context, ILeaveRequestRepository leaveRequestRepository)
         {
             _context = context;
             this.leaveRequestRepository = leaveRequestRepository;
         }
-        [Authorize(Roles =Roles.Administrator)]
+        [Authorize(Roles = Roles.Administrator)]
         // GET: LeaveRequests
         public async Task<IActionResult> Index()
         {
@@ -52,7 +47,7 @@ namespace LeaveManagement.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ApproveRequest(int id,bool approved)
+        public async Task<IActionResult> ApproveRequest(int id, bool approved)
         {
             try
             {
@@ -87,7 +82,7 @@ namespace LeaveManagement.Web.Controllers
         {
             var model = new LeaveRequestCreateVM
             {
-                LeaveTypes = new SelectList(_context.LeaveTypes,"Id","Name")
+                LeaveTypes = new SelectList(_context.LeaveTypes, "Id", "Name")
             };
             return View(model);
         }
@@ -97,7 +92,7 @@ namespace LeaveManagement.Web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create( LeaveRequestCreateVM model)
+        public async Task<IActionResult> Create(LeaveRequestCreateVM model)
         {
             try
             {
@@ -109,15 +104,15 @@ namespace LeaveManagement.Web.Controllers
                         return RedirectToAction(nameof(MyLeave));
                     }
                     ModelState.AddModelError(string.Empty, "You have exceded your allocation with this request.");
-                    
+
                 }
             }
             catch (Exception ex)
             {
 
-                ModelState.AddModelError(string.Empty,"An Error Has Occurred. Please Try Again Later");
+                ModelState.AddModelError(string.Empty, "An Error Has Occurred. Please Try Again Later");
             }
-            
+
             model.LeaveTypes = new SelectList(_context.LeaveTypes, "Id", "Name", model.LeaveTypeId);
             return View(model);
         }
@@ -208,14 +203,14 @@ namespace LeaveManagement.Web.Controllers
             {
                 _context.LeaveRequests.Remove(leaveRequest);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool LeaveRequestExists(int id)
         {
-          return (_context.LeaveRequests?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.LeaveRequests?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

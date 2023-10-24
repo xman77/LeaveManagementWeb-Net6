@@ -9,7 +9,7 @@
         <h2>Leave Allocations</h2>
     </div>
     <ul class="list-group list-group-flush">
-        <li class="List-group-item">
+        <li class="list-group-item">
             <div class="row">
                 <div class="col">Leave Name</div>
                 <div class="col">Original Allocation</div>
@@ -18,7 +18,7 @@
         </li>
         @foreach (var allocation in Model.LeaveAllocations)
         {
-            <li class="list-group-itme">
+            <li class="list-group-item">
                 <div class="row">
                     <div class="col"><h6>@allocation.LeaveType.Name</h6></div>
                     <div class="col">
@@ -92,10 +92,10 @@
                 </td>
                 
                 <td>
-                    @if(item.Approved == null)
+                    @if(item.Approved == null && item.Cancelled == false)
                     {
-                        <form>
-                            <input asp-from="@item.Id" type="hidden"/>
+                        <form asp-action="Cancel">
+                            <input asp-for="@item.Id" name="id" type="hidden"/>
                             <button type="submit" class="btn btn-danger btn-sm">Cancel Request</button>
                         </form>
                     }
